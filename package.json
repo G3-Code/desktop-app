@@ -1,0 +1,22 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "Shoppinglist",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G3-Code/desktop-app.git"
+  },
+  "author": "Gayathri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/G3-Code/desktop-app/issues"
+  },
+  "homepage": "https://github.com/G3-Code/desktop-app#readme",
+  "dependencies": {
+    "electron": "^7.0.0"
+  }
+}
