@@ -21,6 +21,10 @@ app.on("ready", function() {
     // })
     "mainWindow.html"
   );
+
+  mainWindow.on("closed", function() {
+    app.quit();
+  });
   // Build menu from template
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   console.log("MAIN MENU INVOKED");
@@ -37,6 +41,11 @@ function createAddWindow() {
   });
 
   addWindow.loadFile("addWindow.html");
+
+  // Garbage collection handle
+  addWindow.on("closed", function() {
+    addWindow = null;
+  });
 }
 
 // create menu template
@@ -63,3 +72,21 @@ const mainMenuTemplate = [
     ]
   }
 ];
+// Add developer tools item if not in prod
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform === "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focussedWindow) {
+          focussedWindow.toggleDevTools();
+        }
+      },
+      {
+        role: "reload"
+      }
+    ]
+  });
+}
