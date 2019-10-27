@@ -10,7 +10,11 @@ let addWindow;
 // Listen for the app to be ready
 app.on("ready", function() {
   // create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
 
   // Load html file into the window
   mainWindow.loadFile(
@@ -37,7 +41,10 @@ function createAddWindow() {
   addWindow = new BrowserWindow({
     width: 300,
     height: 200,
-    title: "Add shopping list item"
+    title: "Add shopping list item",
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   addWindow.loadFile("addWindow.html");
