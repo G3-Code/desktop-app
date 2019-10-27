@@ -10,7 +10,11 @@ let addWindow;
 // Listen for the app to be ready
 app.on("ready", function() {
   // create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
 
   // Load html file into the window
   mainWindow.loadFile(
@@ -21,6 +25,10 @@ app.on("ready", function() {
     // })
     "mainWindow.html"
   );
+
+  mainWindow.on("closed", function() {
+    app.quit();
+  });
   // Build menu from template
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   console.log("MAIN MENU INVOKED");
@@ -33,10 +41,18 @@ function createAddWindow() {
   addWindow = new BrowserWindow({
     width: 300,
     height: 200,
-    title: "Add shopping list item"
+    title: "Add shopping list item",
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   addWindow.loadFile("addWindow.html");
+
+  // Garbage collection handle
+  addWindow.on("closed", function() {
+    addWindow = null;
+  });
 }
 
 // create menu template
@@ -63,3 +79,21 @@ const mainMenuTemplate = [
     ]
   }
 ];
+// Add developer tools item if not in prod
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform === "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focussedWindow) {
+          focussedWindow.toggleDevTools();
+        }
+      },
+      {
+        role: "reload"
+      }
+    ]
+  });
+}
