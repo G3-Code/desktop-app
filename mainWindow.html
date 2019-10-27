@@ -16,6 +16,16 @@
         li.appendChild(itemText);
         ul.appendChild(li);
       });
+
+      ipcRenderer.on("item:clear", function() {
+        ul.innerHTML = "";
+      });
+
+      ul.addEventListener("dblclick", removeItem);
+
+      function removeItem() {
+        e.target.remove();
+      }
     </script>
   </body>
 </html>
