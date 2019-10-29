@@ -7,13 +7,15 @@
     <title>Add Shopping List Item</title>
   </head>
   <body>
-    <form>
-      <div>
-        <label> Enter Item</label>
-        <input type="text" id="item" autofocus />
-      </div>
-      <button type="submit">Add item</button>
-    </form>
+    <div class="container">
+      <form>
+        <div>
+          <label> Enter Item</label>
+          <input type="text" id="item" autofocus />
+        </div>
+        <button type="submit">Add item</button>
+      </form>
+    </div>
     <script>
       const electron = require("electron");
       const { ipcRenderer } = electron;
